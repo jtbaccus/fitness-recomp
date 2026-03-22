@@ -4,29 +4,9 @@ import { useState, useEffect } from 'react';
 import PageShell from '@/components/PageShell';
 import { toLocalDateString, getNutritionDayTypeForDate, formatDate } from '@/lib/utils';
 import { MACRO_TARGETS } from '@/lib/program-config';
+import MacroBar from '@/components/shared/MacroBar';
 import type { NutritionLog } from '@/types/database';
 import type { NutritionDayType } from '@/types/program';
-
-function MacroBar({ label, value, min, max, unit }: { label: string; value: number; min: number; max: number; unit: string }) {
-  const pct = max > 0 ? Math.min((value / max) * 100, 120) : 0;
-  const inRange = value >= min && value <= max;
-  const over = value > max;
-  const color = inRange ? 'bg-success' : over ? 'bg-warning' : 'bg-amber';
-
-  return (
-    <div className="space-y-1">
-      <div className="flex justify-between text-xs">
-        <span className="text-text-secondary">{label}</span>
-        <span className={inRange ? 'text-success' : over ? 'text-warning' : 'text-amber'}>
-          {value}{unit} <span className="text-text-muted">/ {min}–{max}</span>
-        </span>
-      </div>
-      <div className="h-2 bg-elevated rounded-full overflow-hidden">
-        <div className={`h-full ${color} rounded-full transition-all`} style={{ width: `${Math.min(pct, 100)}%` }} />
-      </div>
-    </div>
-  );
-}
 
 export default function NutritionPage() {
   const [date, setDate] = useState(toLocalDateString());

@@ -73,3 +73,66 @@ export interface Milestone {
   completed_at: string | null;
   created_at: string;
 }
+
+// Meal Planning Types
+
+export type MealSlot = 'breakfast' | 'lunch' | 'dinner' | 'snack';
+export type IngredientCategory = 'produce' | 'protein' | 'dairy' | 'grains' | 'pantry' | 'frozen' | 'condiment';
+export type StorageType = 'pantry' | 'fridge' | 'freezer';
+
+export interface Recipe {
+  id: string;
+  name: string;
+  meal_slot: MealSlot;
+  servings: number;
+  calories_per_serving: number | null;
+  protein_per_serving: number | null;
+  carbs_per_serving: number | null;
+  fat_per_serving: number | null;
+  prep_time_min: number | null;
+  freezer_friendly: boolean;
+  batch_yield: number;
+  notes: string | null;
+  created_at: string;
+}
+
+export interface Ingredient {
+  id: string;
+  name: string;
+  category: IngredientCategory;
+  default_unit: string;
+  perishable: boolean;
+  storage_type: StorageType;
+  created_at: string;
+}
+
+export interface RecipeIngredient {
+  id: string;
+  recipe_id: string;
+  ingredient_id: string;
+  quantity: number;
+  unit: string;
+  notes: string | null;
+}
+
+export interface MealPlanEntry {
+  id: string;
+  date: string;
+  meal_slot: MealSlot;
+  recipe_id: string;
+  servings: number;
+  from_batch: boolean;
+  notes: string | null;
+  created_at: string;
+}
+
+export interface GroceryListItem {
+  id: string;
+  list_type: 'weekly' | 'monthly';
+  week_start: string;
+  ingredient_id: string;
+  quantity: number;
+  unit: string;
+  checked: boolean;
+  created_at: string;
+}
