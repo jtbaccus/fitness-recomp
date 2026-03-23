@@ -93,6 +93,7 @@ export interface Recipe {
   freezer_friendly: boolean;
   batch_yield: number;
   notes: string | null;
+  instructions: string | null;
   created_at: string;
 }
 

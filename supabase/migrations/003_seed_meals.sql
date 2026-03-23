@@ -187,7 +187,7 @@ INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
   ((SELECT id FROM recipes WHERE name='PB Toast + Protein'), (SELECT id FROM ingredients WHERE name='Whey Protein Powder'), 0.5, 'scoops');
 
 -- ── 12-Week Meal Plan ────────────────────────────────────────────────────
--- Stamps the weekly template across all 12 weeks (84 days) starting 2026-03-24
+-- Stamps the weekly template across all 12 weeks (84 days) starting 2026-03-23
 -- Day template:
 --   Sun: Oatmeal / Chicken Rice / Turkey Pasta Bake / Shake
 --   Mon: Egg Scramble / Turkey Taco / Chicken Stir-Fry(batch) / Shake
@@ -199,7 +199,7 @@ INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES
 
 DO $$
 DECLARE
-  start_date DATE := '2026-03-24';
+  start_date DATE := '2026-03-23';
   d DATE;
   dow INT;
 BEGIN

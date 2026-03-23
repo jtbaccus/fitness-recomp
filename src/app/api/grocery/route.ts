@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
       const recipe = recipesData.find(r => r.id === entry.recipe_id);
       if (!recipe) continue;
 
-      const multiplier = recipe.freezer_friendly ? recipe.batch_yield * entry.servings : entry.servings;
+      const multiplier = entry.servings;
       const ris = riData.filter(ri => ri.recipe_id === recipe.id);
 
       for (const ri of ris) {

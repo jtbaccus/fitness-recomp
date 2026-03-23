@@ -8,6 +8,7 @@ interface DayMealCardProps {
   from_batch: boolean;
   servings: number;
   onSwap: () => void;
+  onAISuggest?: () => void;
 }
 
 const slotLabels: Record<MealSlot, string> = {
@@ -17,7 +18,7 @@ const slotLabels: Record<MealSlot, string> = {
   snack: 'Snack',
 };
 
-export default function DayMealCard({ slot, recipe, from_batch, servings, onSwap }: DayMealCardProps) {
+export default function DayMealCard({ slot, recipe, from_batch, servings, onSwap, onAISuggest }: DayMealCardProps) {
   if (!recipe) {
     return (
       <button
@@ -48,6 +49,17 @@ export default function DayMealCard({ slot, recipe, from_batch, servings, onSwap
           )}
           {recipe.prep_time_min && (
             <span className="text-[10px] text-text-muted">{recipe.prep_time_min}m</span>
+          )}
+          {onAISuggest && (
+            <button
+              onClick={(e) => { e.stopPropagation(); onAISuggest(); }}
+              className="w-5 h-5 flex items-center justify-center text-accent hover:text-accent/70 transition-default"
+              aria-label="AI meal suggestions"
+            >
+              <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+                <path d="M10 1l2.39 6.17L18.5 8.5l-5 4.33L15 19 10 15.5 5 19l1.5-6.17-5-4.33 6.11-1.33z" />
+              </svg>
+            </button>
           )}
         </div>
       </div>

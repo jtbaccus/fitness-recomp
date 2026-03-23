@@ -98,6 +98,7 @@ function ensureSeeded() {
       freezer_friendly: r.freezer_friendly,
       batch_yield: r.batch_yield,
       notes: r.notes,
+      instructions: r.instructions || null,
       created_at: new Date().toISOString(),
     };
   });
@@ -294,9 +295,20 @@ export function getRecipes(includeIngredients?: boolean): (Recipe & { ingredient
   }));
 }
 
-export function getRecipeById(id: string): Recipe | null {
+export function getRecipeById(id: string, includeIngredients?: boolean): (Recipe & { ingredients?: (RecipeIngredient & { ingredient?: Ingredient })[] }) | null {
   ensureSeeded();
-  return recipes.find(r => r.id === id) || null;
+  const recipe = recipes.find(r => r.id === id);
+  if (!recipe) return null;
+  if (!includeIngredients) return recipe;
+  return {
+    ...recipe,
+    ingredients: recipeIngredients
+      .filter(ri => ri.recipe_id === recipe.id)
+      .map(ri => ({
+        ...ri,
+        ingredient: ingredients.find(i => i.id === ri.ingredient_id),
+      })),
+  };
 }
 
 // Ingredients
@@ -314,6 +326,41 @@ export function getIngredientById(id: string): Ingredient | null {
 export function getRecipeIngredients(recipeId: string): RecipeIngredient[] {
   ensureSeeded();
   return recipeIngredients.filter(ri => ri.recipe_id === recipeId);
+}
+
+// Create Recipe
+export function createRecipe(data: Omit<Recipe, 'id' | 'created_at'>): Recipe {
+  ensureSeeded();
+  const recipe: Recipe = {
+    id: uuid(),
+    ...data,
+    created_at: new Date().toISOString(),
+  };
+  recipes.push(recipe);
+  return recipe;
+}
+
+// Create Ingredient
+export function createIngredient(data: Omit<Ingredient, 'id' | 'created_at'>): Ingredient {
+  ensureSeeded();
+  const ingredient: Ingredient = {
+    id: uuid(),
+    ...data,
+    created_at: new Date().toISOString(),
+  };
+  ingredients.push(ingredient);
+  return ingredient;
+}
+
+// Create Recipe Ingredient
+export function createRecipeIngredient(data: Omit<RecipeIngredient, 'id'>): RecipeIngredient {
+  ensureSeeded();
+  const ri: RecipeIngredient = {
+    id: uuid(),
+    ...data,
+  };
+  recipeIngredients.push(ri);
+  return ri;
 }
 
 // Meal Plan
@@ -370,8 +417,7 @@ export function generateGroceryList(weekStart: string, listType: 'weekly' | 'mon
     const recipe = recipes.find(r => r.id === entry.recipe_id);
     if (!recipe) continue;
 
-    // For freezer-friendly recipes that are NOT from_batch, we cook the full batch
-    const multiplier = recipe.freezer_friendly ? recipe.batch_yield * entry.servings : entry.servings;
+    const multiplier = entry.servings;
 
     const ris = recipeIngredients.filter(ri => ri.recipe_id === recipe.id);
     for (const ri of ris) {

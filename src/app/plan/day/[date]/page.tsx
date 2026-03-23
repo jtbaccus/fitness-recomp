@@ -8,6 +8,7 @@ import DayWorkoutCard from '@/components/plan/DayWorkoutCard';
 import DayMealCard from '@/components/plan/DayMealCard';
 import DayMacroSummary from '@/components/plan/DayMacroSummary';
 import MealSlotPicker from '@/components/plan/MealSlotPicker';
+import AIMealSwapModal from '@/components/plan/AIMealSwapModal';
 import { formatDate, getDayTypeForDate, getNutritionDayTypeForDate } from '@/lib/utils';
 import type { MealPlanEntry, Recipe, MealSlot } from '@/types/database';
 
@@ -24,6 +25,8 @@ export default function DayDetailPage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [workoutCompleted, setWorkoutCompleted] = useState(false);
   const [pickerSlot, setPickerSlot] = useState<MealSlot | null>(null);
+  const [aiSwapSlot, setAiSwapSlot] = useState<MealSlot | null>(null);
+  const [aiSwapRecipeId, setAiSwapRecipeId] = useState<string | null>(null);
 
   const recipeMap = new Map(recipes.map(r => [r.id, r]));
 
@@ -53,11 +56,9 @@ export default function DayDetailPage() {
     }
   }
 
-  const handleSwapMeal = async (recipeId: string) => {
-    if (!pickerSlot) return;
-
+  const doSwap = async (slot: MealSlot, recipeId: string) => {
     // Remove existing entry for this slot
-    const existing = mealEntries.find(m => m.meal_slot === pickerSlot);
+    const existing = mealEntries.find(m => m.meal_slot === slot);
     if (existing) {
       await fetch(`/api/meal-plan?id=${existing.id}`, { method: 'DELETE' });
     }
@@ -68,15 +69,27 @@ export default function DayDetailPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         date: dateStr,
-        meal_slot: pickerSlot,
+        meal_slot: slot,
         recipe_id: recipeId,
         servings: 1,
         from_batch: false,
       }),
     });
 
-    setPickerSlot(null);
     loadData();
+  };
+
+  const handleSwapMeal = async (recipeId: string) => {
+    if (!pickerSlot) return;
+    await doSwap(pickerSlot, recipeId);
+    setPickerSlot(null);
+  };
+
+  const handleAISwap = async (recipeId: string) => {
+    if (!aiSwapSlot) return;
+    await doSwap(aiSwapSlot, recipeId);
+    setAiSwapSlot(null);
+    setAiSwapRecipeId(null);
   };
 
   // Navigate to previous/next day
@@ -113,6 +126,10 @@ export default function DayDetailPage() {
                 from_batch={entry?.from_batch || false}
                 servings={entry?.servings || 1}
                 onSwap={() => setPickerSlot(slot)}
+                onAISuggest={entry ? () => {
+                  setAiSwapSlot(slot);
+                  setAiSwapRecipeId(entry.recipe_id);
+                } : undefined}
               />
             );
           })}
@@ -127,6 +144,17 @@ export default function DayDetailPage() {
           currentRecipeId={mealEntries.find(m => m.meal_slot === pickerSlot)?.recipe_id || null}
           onSelect={handleSwapMeal}
           onClose={() => setPickerSlot(null)}
+        />
+      )}
+
+      {aiSwapSlot && aiSwapRecipeId && (
+        <AIMealSwapModal
+          isOpen={true}
+          onClose={() => { setAiSwapSlot(null); setAiSwapRecipeId(null); }}
+          date={dateStr}
+          mealSlot={aiSwapSlot}
+          currentRecipeId={aiSwapRecipeId}
+          onSwap={handleAISwap}
         />
       )}
     </PageShell>

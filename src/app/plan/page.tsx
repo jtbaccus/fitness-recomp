@@ -6,6 +6,7 @@ import DashboardSummary from '@/components/plan/DashboardSummary';
 import MonthCalendar from '@/components/plan/MonthCalendar';
 import WeekStrip from '@/components/plan/WeekStrip';
 import { toLocalDateString } from '@/lib/utils';
+import { generateMealSchedulePDF } from '@/lib/meal-schedule-pdf';
 import type { DaySummary } from '@/app/api/plan/summary/route';
 
 export default function PlanPage() {
@@ -59,7 +60,19 @@ export default function PlanPage() {
         />
 
         {weekData.length > 0 && (
-          <WeekStrip days={weekData} today={today} />
+          <>
+            <WeekStrip days={weekData} today={today} />
+            <button
+              onClick={() => {
+                const sun = new Date();
+                sun.setDate(sun.getDate() - sun.getDay());
+                generateMealSchedulePDF(weekData, toLocalDateString(sun));
+              }}
+              className="w-full py-2 bg-elevated text-white text-sm font-medium rounded-xl"
+            >
+              Export Week PDF
+            </button>
+          </>
         )}
       </div>
     </PageShell>

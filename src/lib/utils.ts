@@ -1,4 +1,4 @@
-import { PROGRAM_START_DATE, PHASES } from './program-config';
+import { PROGRAM_START_DATE, PROGRAM_END_DATE, PHASES } from './program-config';
 import { WORKOUT_SCHEDULE, NUTRITION_SCHEDULE } from './program-config';
 import type { ProgramPhase, WorkoutDayType, NutritionDayType } from '@/types/program';
 
@@ -26,7 +26,10 @@ export function getTodayDayType(): WorkoutDayType {
   return WORKOUT_SCHEDULE[day];
 }
 
-export function getDayTypeForDate(date: Date): WorkoutDayType {
+export function getDayTypeForDate(date: Date): WorkoutDayType | 'rest' {
+  const start = new Date(PROGRAM_START_DATE + 'T00:00:00');
+  const end = new Date(PROGRAM_END_DATE + 'T00:00:00');
+  if (date < start || date > end) return 'rest';
   return WORKOUT_SCHEDULE[date.getDay()];
 }
 
@@ -59,7 +62,8 @@ export function toLocalDateString(date: Date = new Date()): string {
   return `${year}-${month}-${day}`;
 }
 
-export function getDayLabel(dayType: WorkoutDayType): string {
+export function getDayLabel(dayType: WorkoutDayType | 'rest'): string {
+  if (dayType === 'rest') return 'Rest';
   const labels: Record<WorkoutDayType, string> = {
     heavy_upper: 'Heavy Upper',
     heavy_lower: 'Heavy Lower',

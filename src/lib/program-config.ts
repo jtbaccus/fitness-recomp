@@ -8,7 +8,7 @@ import type {
   LiftingTargetSeed,
 } from '@/types/program';
 
-export const PROGRAM_START_DATE = '2026-03-24';
+export const PROGRAM_START_DATE = '2026-03-23';
 export const PROGRAM_END_DATE = '2026-06-15';
 
 // Day of week (0=Sun) → workout type
@@ -186,6 +186,27 @@ export const SEED_LIFTING_TARGETS: LiftingTargetSeed[] = [
   { exerciseName: 'Calf Raises', estimatedStartMin: 40, estimatedStartMax: 60, week4Goal: '+reps first', week8Goal: '+10 lb', week12Goal: '+15-20 lb' },
   { exerciseName: 'Tonal Cable Crunch', estimatedStartMin: 20, estimatedStartMax: 40, week4Goal: '+10%', week8Goal: '+20%', week12Goal: '+25-30%' },
   { exerciseName: 'Hanging Leg Raise', estimatedStartMin: 0, estimatedStartMax: 0, week4Goal: 'Add slow reps', week8Goal: 'Hold DB between feet', week12Goal: 'Increase DB weight' },
+  // Tonal + additional exercises
+  { exerciseName: 'Chest-Supported Row', estimatedStartMin: 30, estimatedStartMax: 45, week4Goal: '+10%', week8Goal: '+15-20%', week12Goal: '+20-25%' },
+  { exerciseName: 'Tonal Leg Extension', estimatedStartMin: 20, estimatedStartMax: 40, week4Goal: '+10%', week8Goal: '+20%', week12Goal: '+25-30%' },
+  { exerciseName: 'Weighted Cable Crunch', estimatedStartMin: 20, estimatedStartMax: 40, week4Goal: '+10%', week8Goal: '+20%', week12Goal: '+25-30%' },
+  { exerciseName: 'Tonal Pulldown', estimatedStartMin: 30, estimatedStartMax: 50, week4Goal: '+10%', week8Goal: '+15-20%', week12Goal: '+20-25%' },
+  { exerciseName: 'Incline DB Press', estimatedStartMin: 35, estimatedStartMax: 50, week4Goal: '+10%', week8Goal: '+15-20%', week12Goal: '+20-25%' },
+  { exerciseName: 'Tonal Row', estimatedStartMin: 25, estimatedStartMax: 45, week4Goal: '+10%', week8Goal: '+15-20%', week12Goal: '+20-25%' },
+  { exerciseName: 'Face Pull', estimatedStartMin: 15, estimatedStartMax: 25, week4Goal: '+reps first', week8Goal: '+10%', week12Goal: '+15-20%' },
+  { exerciseName: 'Triceps Overhead Extension', estimatedStartMin: 20, estimatedStartMax: 35, week4Goal: '+5 lb', week8Goal: '+10 lb', week12Goal: '+10-15 lb' },
+  { exerciseName: 'Heels-Elevated Goblet Squat', estimatedStartMin: 45, estimatedStartMax: 65, week4Goal: '+10%', week8Goal: '+15-20%', week12Goal: '+20-30%' },
+  { exerciseName: 'Tonal Hamstring Curl', estimatedStartMin: 20, estimatedStartMax: 35, week4Goal: '+10%', week8Goal: '+20%', week12Goal: '+25-30%' },
+  { exerciseName: 'Cable Crunch', estimatedStartMin: 20, estimatedStartMax: 40, week4Goal: '+10%', week8Goal: '+20%', week12Goal: '+25-30%' },
+  { exerciseName: 'Weighted Crunch', estimatedStartMin: 10, estimatedStartMax: 25, week4Goal: '+5 lb', week8Goal: '+10 lb', week12Goal: '+15 lb' },
+  { exerciseName: 'Wrist Curl', estimatedStartMin: 10, estimatedStartMax: 20, week4Goal: '+reps first', week8Goal: '+5 lb', week12Goal: '+5-10 lb' },
+  { exerciseName: 'Reverse Wrist Curl', estimatedStartMin: 5, estimatedStartMax: 15, week4Goal: '+reps first', week8Goal: '+5 lb', week12Goal: '+5-10 lb' },
+  { exerciseName: 'Farmer Hold', estimatedStartMin: 40, estimatedStartMax: 60, week4Goal: '+time first', week8Goal: '+10 lb', week12Goal: '+15-20 lb' },
+  // Bodyweight exercises (track reps/time, not weight)
+  { exerciseName: 'Plank', estimatedStartMin: 0, estimatedStartMax: 0, week4Goal: '45 sec holds', week8Goal: '60 sec holds', week12Goal: '60+ sec holds' },
+  { exerciseName: 'Dead Bug', estimatedStartMin: 0, estimatedStartMax: 0, week4Goal: 'Slow controlled reps', week8Goal: '+reps', week12Goal: 'Add ankle weights' },
+  { exerciseName: 'Side Plank', estimatedStartMin: 0, estimatedStartMax: 0, week4Goal: '30 sec each', week8Goal: '45 sec each', week12Goal: '60 sec each' },
+  { exerciseName: 'Band Finger Extensions', estimatedStartMin: 0, estimatedStartMax: 0, week4Goal: '+reps', week8Goal: 'Heavier band', week12Goal: 'Heavier band' },
 ];
 
 /** Get the programmed day config for a workout day type */

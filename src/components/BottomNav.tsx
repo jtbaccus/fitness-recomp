@@ -6,9 +6,10 @@ import { usePathname } from 'next/navigation';
 const tabs = [
   { href: '/plan', label: 'Plan', icon: CalendarIcon },
   { href: '/workout', label: 'Workout', icon: DumbbellIcon },
-  { href: '/nutrition', label: 'Nutrition', icon: UtensilsIcon },
-  { href: '/checkins', label: 'Check-In', icon: ClipboardIcon },
-  { href: '/progress', label: 'Progress', icon: ChartIcon },
+  { href: '/recipes', label: 'Recipes', icon: BookIcon },
+  { href: '/grocery', label: 'Grocery', icon: CartIcon },
+  { href: '/track', label: 'Track', icon: ChartIcon },
+  { href: '/coach', label: 'Coach', icon: SparklesIcon },
 ];
 
 export default function BottomNav() {
@@ -59,22 +60,21 @@ function DumbbellIcon({ className }: { className?: string }) {
   );
 }
 
-function UtensilsIcon({ className }: { className?: string }) {
+function BookIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2" />
-      <path d="M7 2v20" />
-      <path d="M21 15V2v0a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3zm0 0v7" />
+      <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
+      <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
     </svg>
   );
 }
 
-function ClipboardIcon({ className }: { className?: string }) {
+function CartIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-      <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
-      <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" />
-      <path d="M12 11h4M12 16h4M8 11h.01M8 16h.01" />
+      <circle cx="8" cy="21" r="1" />
+      <circle cx="19" cy="21" r="1" />
+      <path d="M2.05 2.05h2l2.66 12.42a2 2 0 002 1.58h9.78a2 2 0 001.95-1.57l1.65-7.43H5.12" />
     </svg>
   );
 }
@@ -85,6 +85,14 @@ function ChartIcon({ className }: { className?: string }) {
       <line x1="18" y1="20" x2="18" y2="10" />
       <line x1="12" y1="20" x2="12" y2="4" />
       <line x1="6" y1="20" x2="6" y2="14" />
+    </svg>
+  );
+}
+
+function SparklesIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3l1.912 5.813a2 2 0 001.275 1.275L21 12l-5.813 1.912a2 2 0 00-1.275 1.275L12 21l-1.912-5.813a2 2 0 00-1.275-1.275L3 12l5.813-1.912a2 2 0 001.275-1.275L12 3z" />
     </svg>
   );
 }
