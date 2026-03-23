@@ -77,10 +77,46 @@ Migration 003 (seed data):
 
 - [x] Core app built and deployed to GitHub
 - [x] Meal planning, calendar views, grocery lists added
-- [ ] Supabase migration pushed (002 + 003)
-- [ ] Vercel deployment
-- [ ] Test on phone
-- [ ] PWA install verification
+- [x] Supabase migrations pushed (001-005)
+- [x] Phase 3: Recipes, AI Coach, nav restructure, meal plan refinements
+- [x] 6-tab nav (Plan, Workout, Recipes, Grocery, Track, Coach)
+- [x] Recipe browser with cooking instructions
+- [x] AI features (meal swap, weekly coach, fridge recipe generator) via OpenRouter
+- [x] PDF export (grocery, weekly schedule, recipes)
+- [x] Full workout view with target weights for all exercises
+- [x] Hello Fresh (Mon/Wed/Thu) + Pizza Night (Fri) built in
+- [x] Dinner servings scaled to family of 4
+- [x] Committed and pushed to GitHub
+
+## To Do
+
+### Priority — Deploy
+- [ ] Deploy to Vercel (`npx vercel --prod`)
+- [ ] Set Vercel env vars: NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_KEY, AI_API_KEY, AI_BASE_URL, AI_MODEL
+- [ ] Test on phone (responsive, PWA install)
+- [ ] Verify AI features work on production
+
+### Meal Plan Refinements
+- [ ] Review lunch rotation — currently heavy on chicken (4 of 7 days)
+- [ ] Consider alternating Beef & Broccoli back in on Saturdays (currently Chicken Stir-Fry both Sat cook + Tue batch)
+- [ ] Add more snack variety (only 3 snack recipes)
+- [ ] Adjust macro estimates for Hello Fresh (currently generic 650cal) — update per actual recipes received
+
+### Features
+- [ ] Workout logging — connect "Start" button to actual set tracking per day's program
+- [ ] Nutrition logging — track actual meals eaten vs planned
+- [ ] Check-in form — test weekly weigh-in flow and progress charts
+- [ ] AI coach — test with real check-in data after first week
+- [ ] Meal swap — test AI suggestions with OpenRouter in production
+- [ ] Fridge recipe generator — test end-to-end (generate → save → appears in recipes)
+- [ ] Add ability to edit/delete user-created recipes
+
+### Nice to Have
+- [ ] Push notifications for meal prep reminders (batch cook Sunday)
+- [ ] Barcode/photo scanning for quick nutrition logging
+- [ ] Integration with Apple Health or Google Fit for weight sync
+- [ ] Dark/light theme toggle (currently dark only)
+- [ ] Share meal plan with family members
 
 ## Companion Project
 
