@@ -1,6 +1,6 @@
-# codex.md - Fitness Recomp App
+# AGENTS.md - Fitness Recomp App
 
-Inherit the workspace rules from `/home/jtbaccus/turing/codex.md`.
+Inherit the workspace rules from `/home/jtbaccus/turing/AGENTS.md`.
 
 ## Project Profile
 - Next.js app for nutrition, training, and body recomposition tracking.
